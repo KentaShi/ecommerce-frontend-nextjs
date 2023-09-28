@@ -7,7 +7,7 @@ import Link from "next/link"
 
 const NavBar = () => {
     return (
-        <div className='flex flex-col items-center justify-center bg-[#f53d2d] text-white px-8 sticky top-0 z-[999]'>
+        <div className='flex flex-col items-center justify-center bg-[#f9502f] text-white px-8 sticky top-0 z-[999]'>
             <div className='flex flex-row items-center justify-between mx-auto my-1 w-full max-w-[1200px]'>
                 <div className='flex flex-row items-center justify-start text-xs'>
                     <div>
@@ -20,11 +20,11 @@ const NavBar = () => {
                 </div>
                 <div className='flex flex-row items-center justify-end text-sm'>
                     <div>
-                        <Link href='/register'>Đăng ký</Link>
+                        <Link href='/buyer/register'>Đăng ký</Link>
                     </div>
                     <span className='after:content-["|"] after:mx-1'></span>
                     <div>
-                        <Link href='/login'>Đăng nhập</Link>
+                        <Link href='/buyer/login'>Đăng nhập</Link>
                     </div>
                 </div>
             </div>
@@ -41,12 +41,12 @@ const NavBar = () => {
                         type='text'
                         placeholder='Search...'
                     />
-                    <button className='!absolute top-1 right-1 text-white bg-[#f53d2d] rounded py-1 px-4'>
+                    <button className='!absolute top-1 right-1 text-white bg-[#f9502f] rounded py-1 px-4'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
                             viewBox='0 0 20 20'
                             fill='currentColor'
-                            class='w-5 h-5'
+                            className='w-5 h-5'
                         >
                             <path
                                 fill-rule='evenodd'
