@@ -5,7 +5,7 @@ import React from "react"
 const CategoryCard = ({ slug, image, name }) => {
     return (
         <Link
-            href={`/${slug}`}
+            href={`/category/${slug}`}
             className='flex flex-col items-center justify-center hover:shadow-lg py-5'
         >
             <div className='flex-shrink-0'>
