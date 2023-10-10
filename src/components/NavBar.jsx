@@ -11,20 +11,20 @@ const NavBar = () => {
             <div className='flex flex-row items-center justify-between mx-auto my-1 w-full max-w-[1200px]'>
                 <div className='flex flex-row items-center justify-start text-xs'>
                     <div>
-                        <Link href='/seller/login'>Kênh người bán</Link>
+                        <Link href='/shop/login'>Kênh người bán</Link>
                     </div>
                     <span className='after:content-["|"] after:mx-1'></span>
                     <div>
-                        <Link href='/seller/register'>Trờ thành người bán</Link>
+                        <Link href='/shop/register'>Trờ thành người bán</Link>
                     </div>
                 </div>
                 <div className='flex flex-row items-center justify-end text-sm'>
                     <div>
-                        <Link href='/buyer/register'>Đăng ký</Link>
+                        <Link href='/user/register'>Đăng ký</Link>
                     </div>
                     <span className='after:content-["|"] after:mx-1'></span>
                     <div>
-                        <Link href='/buyer/login'>Đăng nhập</Link>
+                        <Link href='/user/login'>Đăng nhập</Link>
                     </div>
                 </div>
             </div>
