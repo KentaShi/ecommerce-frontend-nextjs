@@ -1,83 +1,71 @@
 import Head from "next/head"
 import Link from "next/link"
-import React, { useContext, useEffect, useState } from "react"
-import { validUserLogin } from "../../utils/valid"
+import React, { useState } from "react"
+import { validShopSignUp } from "../../utils/valid"
 import { postData } from "../../utils/fetchData"
-import { DataContext } from "@/stores/globalState"
-import { useRouter } from "next/router"
 
-const LoginShop = () => {
-    const initState = {
+const SignUpShop = () => {
+    const initialData = {
+        name: "",
         email: "",
+        phone: "",
         password: "",
     }
-
-    const router = useRouter()
-    const [userData, setUserData] = useState(initState)
-    const { email, password } = userData
-
-    const [state, dispatch] = useContext(DataContext)
-    const { auth } = state
-    const { shop, token } = auth
-    console.log({ shop })
-
+    const [shopData, setShopData] = useState(initialData)
+    const { name, email, phone, password } = shopData
     const handleChange = (e) => {
         const { name, value } = e.target
-        setUserData({ ...userData, [name]: value })
+        setShopData({ ...shopData, [name]: value })
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const msg = validUserLogin(email, password)
+        const msg = validShopSignUp(name, email, phone, password)
         if (msg) {
             return alert(msg)
         }
-
-        const res = await postData("shop/login", userData, process.env.API_KEY)
-        console.log(res.metadata)
-
-        const data = res.metadata
-
-        dispatch({
-            type: "AUTH",
-            payload: { token: data.tokens.accessToken, shop: data.shop },
-        })
-
-        localStorage.setItem("firstLogin", true)
+        const res = await postData("shop/signup", shopData)
+        console.log(res)
     }
-    useEffect(() => {
-        if (shop) {
-            router.push("/shop")
-        }
-    }, [shop])
-
-    // useEffect(() => {
-    //     if (Object.keys(auth).length != 0) router.back()
-    // }, [auth])
-
     return (
         <>
             <Head>
-                <title>Đăng nhập kênh người bán</title>
+                <title>Đăng ký trở thành người bán</title>
             </Head>
             <div className='flex flex-col items-center justify-center '>
                 <div className='bg-gray-200 p-6 rounded mt-12 min-w-[400px]'>
                     <div>
-                        <p className='text-lg'>Đăng Nhập Kênh Người Bán</p>
+                        <p className='text-lg'>Đăng Ký Trở thành người bán</p>
                     </div>
                     <form onSubmit={handleSubmit} action=''>
                         <div className='flex flex-col '>
                             <input
+                                onChange={handleChange}
+                                name='name'
+                                value={name}
+                                className='px-3 py-2 rounded my-2 w-full'
+                                type='text'
+                                placeholder='Tên Shop'
+                            />
+                            <input
+                                onChange={handleChange}
                                 name='email'
                                 value={email}
-                                onChange={handleChange}
                                 className='px-3 py-2 rounded my-2 w-full'
-                                type='email'
+                                type='text'
                                 placeholder='Email'
                             />
                             <input
+                                onChange={handleChange}
+                                name='phone'
+                                value={phone}
+                                className='px-3 py-2 rounded my-2 w-full'
+                                type='text'
+                                placeholder='Số điện thoại'
+                            />
+                            <input
+                                onChange={handleChange}
                                 name='password'
                                 value={password}
-                                onChange={handleChange}
                                 className='px-3 py-2 rounded my-2'
                                 type='password'
                                 placeholder='Mật khẩu'
@@ -86,18 +74,18 @@ const LoginShop = () => {
                                 type='submit'
                                 className='bg-[#f9502f] rounded text-white py-2 uppercase mt-6'
                             >
-                                Đăng Nhập
+                                Đăng Ký
                             </button>
                         </div>
                     </form>
                     <div className='flex mt-3'>
-                        <p>Bạn mới biết đến Shoppee? </p>
+                        <p>Bạn đã có tài khoản Shoppee? </p>
                         <Link
                             className='text-[#f9502f] ml-1'
-                            href='/shop/signup'
+                            href='/shop/login'
                         >
                             {" "}
-                            Đăng Ký
+                            Đăng Nhập
                         </Link>
                     </div>
                 </div>
@@ -106,4 +94,4 @@ const LoginShop = () => {
     )
 }
 
-export default LoginShop
+export default SignUpShop

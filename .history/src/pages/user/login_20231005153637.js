@@ -1,86 +1,56 @@
 import Head from "next/head"
 import Link from "next/link"
-import React, { useContext, useEffect, useState } from "react"
-import { validUserLogin } from "../../utils/valid"
-import { postData } from "../../utils/fetchData"
-import { DataContext } from "@/stores/globalState"
-import { useRouter } from "next/router"
+import React, { useState } from "react"
+import { validUserLogin } from "../../../utils/valid"
 
-const LoginShop = () => {
+const Login = () => {
     const initState = {
-        email: "",
+        username: "",
         password: "",
     }
-
-    const router = useRouter()
     const [userData, setUserData] = useState(initState)
-    const { email, password } = userData
-
-    const [state, dispatch] = useContext(DataContext)
-    const { auth } = state
-    const { shop, token } = auth
-    console.log({ shop })
-
+    const { username, password } = userData
     const handleChange = (e) => {
         const { name, value } = e.target
         setUserData({ ...userData, [name]: value })
     }
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
-        const msg = validUserLogin(email, password)
+        const msg = validUserLogin(username, password)
         if (msg) {
             return alert(msg)
         }
-
-        const res = await postData("shop/login", userData, process.env.API_KEY)
-        console.log(res.metadata)
-
-        const data = res.metadata
-
-        dispatch({
-            type: "AUTH",
-            payload: { token: data.tokens.accessToken, shop: data.shop },
-        })
-
-        localStorage.setItem("firstLogin", true)
     }
-    useEffect(() => {
-        if (shop) {
-            router.push("/shop")
-        }
-    }, [shop])
 
-    // useEffect(() => {
-    //     if (Object.keys(auth).length != 0) router.back()
-    // }, [auth])
-
+    console.log({ userData })
     return (
         <>
             <Head>
-                <title>Đăng nhập kênh người bán</title>
+                <title>Đăng nhập tài khoản</title>
             </Head>
+
             <div className='flex flex-col items-center justify-center '>
                 <div className='bg-gray-200 p-6 rounded mt-12 min-w-[400px]'>
                     <div>
-                        <p className='text-lg'>Đăng Nhập Kênh Người Bán</p>
+                        <p className='text-lg'>Đăng Nhập</p>
                     </div>
                     <form onSubmit={handleSubmit} action=''>
                         <div className='flex flex-col '>
                             <input
-                                name='email'
-                                value={email}
-                                onChange={handleChange}
+                                name='username'
+                                value={username}
                                 className='px-3 py-2 rounded my-2 w-full'
-                                type='email'
-                                placeholder='Email'
+                                type='text'
+                                placeholder='Tên đăng nhập'
+                                onChange={handleChange}
                             />
                             <input
                                 name='password'
                                 value={password}
-                                onChange={handleChange}
                                 className='px-3 py-2 rounded my-2'
                                 type='password'
                                 placeholder='Mật khẩu'
+                                onChange={handleChange}
                             />
                             <button
                                 type='submit'
@@ -94,7 +64,7 @@ const LoginShop = () => {
                         <p>Bạn mới biết đến Shoppee? </p>
                         <Link
                             className='text-[#f9502f] ml-1'
-                            href='/shop/signup'
+                            href='/user/register'
                         >
                             {" "}
                             Đăng Ký
@@ -106,4 +76,4 @@ const LoginShop = () => {
     )
 }
 
-export default LoginShop
+export default Login

@@ -1,8 +1,8 @@
 "use client"
 
 import React, { useContext, useEffect } from "react"
+import { DataContext } from "../../../stores/globalState"
 import { useRouter } from "next/router"
-import { DataContext } from "@/stores/globalState"
 
 const ShopPage = () => {
     const [state, dispatch] = useContext(DataContext)

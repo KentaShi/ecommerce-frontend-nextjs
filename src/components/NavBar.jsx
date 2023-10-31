@@ -15,7 +15,7 @@ const NavBar = () => {
                     </div>
                     <span className='after:content-["|"] after:mx-1'></span>
                     <div>
-                        <Link href='/shop/register'>Trờ thành người bán</Link>
+                        <Link href='/shop/signup'>Trờ thành người bán</Link>
                     </div>
                 </div>
                 <div className='flex flex-row items-center justify-end text-sm'>

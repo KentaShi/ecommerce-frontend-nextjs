@@ -41,8 +41,6 @@ const LoginShop = () => {
             type: "AUTH",
             payload: { token: data.tokens.accessToken, shop: data.shop },
         })
-
-        localStorage.setItem("firstLogin", true)
     }
     useEffect(() => {
         if (shop) {

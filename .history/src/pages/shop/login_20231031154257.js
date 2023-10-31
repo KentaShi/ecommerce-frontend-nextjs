@@ -1,6 +1,6 @@
 import Head from "next/head"
 import Link from "next/link"
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useState } from "react"
 import { validUserLogin } from "../../utils/valid"
 import { postData } from "../../utils/fetchData"
 import { DataContext } from "@/stores/globalState"
@@ -18,8 +18,6 @@ const LoginShop = () => {
 
     const [state, dispatch] = useContext(DataContext)
     const { auth } = state
-    const { shop, token } = auth
-    console.log({ shop })
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -32,7 +30,11 @@ const LoginShop = () => {
             return alert(msg)
         }
 
-        const res = await postData("shop/login", userData, process.env.API_KEY)
+        const res = await postData(
+            "shop/login",
+            userData,
+            "7c6d6c57973bd235e17fbe4e18ff9648152dd4427d00f3afe116f725a3a7610cea3ae7f57cba66b4bc601da93657f61f5416a69c6456f9e4b722bf0484e24268"
+        )
         console.log(res.metadata)
 
         const data = res.metadata
@@ -41,18 +43,11 @@ const LoginShop = () => {
             type: "AUTH",
             payload: { token: data.tokens.accessToken, shop: data.shop },
         })
-
-        localStorage.setItem("firstLogin", true)
     }
-    useEffect(() => {
-        if (shop) {
-            router.push("/shop")
-        }
-    }, [shop])
 
-    // useEffect(() => {
-    //     if (Object.keys(auth).length != 0) router.back()
-    // }, [auth])
+    useEffect(() => {
+        if (Object.keys(auth).length != 0) router.back()
+    }, [third])
 
     return (
         <>

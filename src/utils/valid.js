@@ -20,6 +20,14 @@ export const validUserRegistration = (
         return "Nhập lại mật khẩu không đúng!"
     }
 }
+export const validShopSignUp = (name, email, phone, password) => {
+    if (!name || !email || !phone || !password) {
+        return "Vui lòng điền đầy đủ!"
+    }
+    if (password.length < 4) {
+        return "Mật khẩu phải lớn hơn 4 ký tự!"
+    }
+}
 
 export const validUserLogin = (email, password) => {
     if (!email || !password) {

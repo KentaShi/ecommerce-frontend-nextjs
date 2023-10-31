@@ -1,8 +1,31 @@
 import Head from "next/head"
 import Link from "next/link"
-import React from "react"
+import React, { useState } from "react"
+import { validShopSignUp } from "../../utils/valid"
+import { postData } from "../../utils/fetchData"
 
-const RegisterShop = () => {
+const SignUpShop = () => {
+    const initialData = {
+        name: "",
+        email: "",
+        phone: "",
+        password: "",
+    }
+    const [shopData, setShopData] = useState(initialData)
+    const { name, email, phone, password } = shopData
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setShopData({ ...shopData, [name]: value })
+    }
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const msg = validShopSignUp(name, email, phone, password)
+        if (msg) {
+            return alert(msg)
+        }
+        const res = await postData("shop/signup", shopData)
+        console.log(res)
+    }
     return (
         <>
             <Head>
@@ -13,34 +36,44 @@ const RegisterShop = () => {
                     <div>
                         <p className='text-lg'>Đăng Ký Trở thành người bán</p>
                     </div>
-                    <form action=''>
+                    <form onSubmit={handleSubmit} action=''>
                         <div className='flex flex-col '>
                             <input
+                                onChange={handleChange}
+                                name='name'
+                                value={name}
                                 className='px-3 py-2 rounded my-2 w-full'
                                 type='text'
-                                placeholder='Họ tên'
+                                placeholder='Tên Shop'
                             />
                             <input
+                                onChange={handleChange}
+                                name='email'
+                                value={email}
                                 className='px-3 py-2 rounded my-2 w-full'
                                 type='text'
                                 placeholder='Email'
                             />
                             <input
+                                onChange={handleChange}
+                                name='phone'
+                                value={phone}
                                 className='px-3 py-2 rounded my-2 w-full'
                                 type='text'
                                 placeholder='Số điện thoại'
                             />
                             <input
+                                onChange={handleChange}
+                                name='password'
+                                value={password}
                                 className='px-3 py-2 rounded my-2'
                                 type='password'
                                 placeholder='Mật khẩu'
                             />
-                            <input
-                                className='px-3 py-2 rounded my-2'
-                                type='password'
-                                placeholder='Nhập lại mật khẩu'
-                            />
-                            <button className='bg-[#f9502f] rounded text-white py-2 uppercase mt-6'>
+                            <button
+                                type='submit'
+                                className='bg-[#f9502f] rounded text-white py-2 uppercase mt-6'
+                            >
                                 Đăng Ký
                             </button>
                         </div>
@@ -61,4 +94,4 @@ const RegisterShop = () => {
     )
 }
 
-export default RegisterShop
+export default SignUpShop

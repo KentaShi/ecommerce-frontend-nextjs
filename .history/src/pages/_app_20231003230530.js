@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout"
-import { DataProvider } from "@/stores/globalState"
 import "@/styles/globals.css"
+import { DataProvider } from "../../stores/globalState"
 
 export default function App({ Component, pageProps }) {
     return (
